@@ -13,7 +13,6 @@ The server will start on https://localhost:8443/oauth_callback
 
 import os
 import ssl
-import tempfile
 from datetime import datetime, timedelta
 from flask import Flask, request, render_template_string
 
@@ -143,7 +142,6 @@ HTML_TEMPLATE = """
             </div>
             
             <button class="copy-btn" onclick="copyToClipboard()">📋 Copy Code</button>
-            <button class="copy-btn" onclick="window.close()">✖️ Close Window</button>
             
             {% if state %}
             <div class="code-container">
@@ -165,7 +163,6 @@ HTML_TEMPLATE = """
                 Please check your OAuth configuration and try again. Make sure your client ID and redirect URI are correctly configured.
             </div>
             
-            <button class="copy-btn" onclick="window.close()">✖️ Close Window</button>
         {% endif %}
         
         <div class="footer">
@@ -279,8 +276,6 @@ def index():
                 <li>Start your OAuth flow</li>
                 <li>After authorization, the code will be displayed here</li>
             </ol>
-            
-            <p><em>Server started at: """ + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + """</em></p>
         </div>
     </body>
     </html>
