@@ -250,14 +250,16 @@ def oauth_callback():
 @app.route('/', methods=['GET'])
 def index():
     """Root endpoint with instructions."""
-    return """
+    # Get the host URL for dynamic endpoint display
+    host = request.host_url
+    return f"""
     <html>
     <head>
         <title>OAuth Callback Server</title>
         <style>
-            body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-            .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-            .endpoint { background: #e3f2fd; padding: 15px; border-radius: 5px; font-family: monospace; }
+            body {{ font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }}
+            .container {{ background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+            .endpoint {{ background: #e3f2fd; padding: 15px; border-radius: 5px; font-family: monospace; }}
         </style>
     </head>
     <body>
@@ -267,7 +269,7 @@ def index():
             
             <h3>📡 Callback Endpoint:</h3>
             <div class="endpoint">
-                <strong>https://localhost:8443/oauth_callback</strong>
+                <strong>{host}oauth_callback</strong>
             </div>
             
             <h3>📋 Usage:</h3>
@@ -399,7 +401,7 @@ if __name__ == '__main__':
         print("🛑 Press Ctrl+C to stop the server")
         print("="*50)
         
-        app.run(host='localhost', port=8443, ssl_context=context, debug=False)
+        app.run(host='0.0.0.0', port=8443, ssl_context=context, debug=False)
     else:
         # HTTP fallback
         print("⚠️ Running in HTTP mode (no SSL)")
@@ -412,4 +414,4 @@ if __name__ == '__main__':
         print("🛑 Press Ctrl+C to stop the server")
         print("="*50)
         
-        app.run(host='localhost', port=8443, debug=False)
+        app.run(host='0.0.0.0', port=8443, debug=False)
